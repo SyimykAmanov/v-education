@@ -1,5 +1,6 @@
 import {header} from "../components/header.js";
 import {footer} from "../components/footer.js";
+import { state } from "./state.js";
 
 function parsePath (pattern, pathname) {
     let patternPart = pattern.split("/").filter(Boolean);
@@ -43,6 +44,15 @@ export function createRouter({rootEl, routes}) {
     }
 
     function onLinkClick(event) {
+        const favBtn = event.target.closest('.card__fav-btn');
+        if (favBtn) {
+            const id = favBtn.dataset.id;
+            state.toggleFavorite(id);
+            
+            // Магия SPA: просто перерисовываем текущую страницу, чтобы увидеть изменения
+            render(window.location.pathname);
+        }
+
         let a = event.target.closest("a");
         if (!a) return
         
