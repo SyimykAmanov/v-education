@@ -15,9 +15,9 @@ export const homePage = {
             </section>
 
 
-             <section class="sections-preview">
-                <h2 class="sections-preview__title">Разделы видео уроков</h2>
-                <ul class="sections-preview__list">
+             <section class="subjects-preview">
+                <h2 class="subjects-preview__title">Разделы видео уроков</h2>
+                <ul class="subjects-preview__list">
                     ${subjectsHTML}
                 </ul>
             </section>

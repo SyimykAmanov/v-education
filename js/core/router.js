@@ -44,7 +44,7 @@ export function createRouter({rootEl, routes}) {
     }
 
     function onLinkClick(event) {
-        const favBtn = event.target.closest('.card__fav-btn');
+        const favBtn = event.target.closest('.favorite-btn');
         if (favBtn) {
             const id = favBtn.dataset.id;
             state.toggleFavorite(id);
