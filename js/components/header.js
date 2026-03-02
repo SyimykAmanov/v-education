@@ -1,11 +1,20 @@
-export const header = () => `
+import {state} from "../core/state.js";
+
+export const header = () => {
+    const count = state.favorites.length;
+    return `
         <header class="header">
             <div class="header__container"> 
 
-                <!-- header__logo -->
-                <a href="/" class="logo header__logo">
-                    <img class="logo__img" src="./assets/img/logo.png" alt="logo">
-                </a>
+                <div class="header__info">
+                    <a href="/" class="logo header__logo">
+                        <img class="logo__img" src="./assets/img/logo.png" alt="logo">
+                    </a>
+
+                    <div class="header__favorites">
+                        <span class="nav__fav-count">Избранное: ${count}</span>
+                    </div>
+                </div>
 
                <!-- header menu -->
                 <nav class="header__nav">
@@ -27,4 +36,4 @@ export const header = () => `
             </div>
         </header>
 
-`;
+`};

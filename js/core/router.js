@@ -51,6 +51,11 @@ export function createRouter({rootEl, routes}) {
             
             // Магия SPA: просто перерисовываем текущую страницу, чтобы увидеть изменения
             render(window.location.pathname);
+
+            const headerEl = rootEl.querySelector(".header");
+            if (headerEl) {
+                headerEl.outerHTML = header();
+            }
         }
 
         let a = event.target.closest("a");
