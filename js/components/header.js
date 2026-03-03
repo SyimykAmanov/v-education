@@ -1,7 +1,15 @@
 import {state} from "../core/state.js";
+import { subjects } from "../data/content.js";
 
 export const header = () => {
     const count = state.favorites.length;
+    console.log(state.favorites)
+
+    const subjectsList = subjects.map(s => `
+                        <li class="header__menu-item">
+                            <a href="/subject/${s.id}" class="header__menu-link">${s.title}</a>
+                        </li>
+    `).join("");
     return `
         <header class="header">
             <div class="header__container"> 
@@ -12,25 +20,14 @@ export const header = () => {
                     </a>
 
                     <div class="header__favorites">
-                        <span class="nav__fav-count">Избранное: ${count}</span>
+                        <span class="nav__fav-count">Lieblingsfächer: ${count}</span>
                     </div>
                 </div>
 
                <!-- header menu -->
                 <nav class="header__nav">
                     <ul class="header__menu">
-                        <li class="header__menu-item"> <!-- Математика -->
-                            <a href="/subject/math" class="header__menu-link">Математика</a>
-                        </li>
-                        <li class="header__menu-item"> <!-- Грамматика -->
-                            <a href="/subject/grammar" class="header__menu-link">Грамматика</a>
-                        </li>
-                        <li class="header__menu-item"> <!-- Чтение -->
-                            <a href="/subject/reading" class="header__menu-link">Чтение</a>
-                        </li>
-                        <li class="header__menu-item"> <!-- Аналогия -->
-                            <a href="/subject/analogies" class="header__menu-link">Аналогия</a>
-                        </li>
+                        ${subjectsList}
                     </ul>
                 </nav>
             </div>

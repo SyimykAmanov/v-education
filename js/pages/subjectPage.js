@@ -4,13 +4,13 @@ import { lessonCard } from "../components/lessonCard.js";
 export const subjectPage = {
   render({ subjectId }) {
     const subject = getSubjectById(subjectId);
-    if (!subject) return `<h1>Раздел не найден</h1><p>${subjectId}</p>`;
+    if (!subject) return `<h1>Kein Fach gefunden</h1><p>${subjectId}</p>`;
 
     const subjectLessons = getLessonsBySubjectId(subjectId);
 
     const list = subjectLessons.length
       ? subjectLessons.map(lessonCard).join("")
-      : `<li class="card lesson-preview"><p class="card__description">Нет уроков</p></li>`;
+      : `<li class="card lesson-preview"><p class="card__description">Keine Videos verfügbar</p></li>`;
 
     return `
       <section class="hero-sections">
@@ -19,7 +19,7 @@ export const subjectPage = {
       </section>
 
       <section class="lessons-preview">
-        <h2 class="lessons-preview__title">Все темы</h2>
+        <h2 class="lessons-preview__title">Lektionsliste</h2>
         <ul class="lessons-preview__items">${list}</ul>
       </section>
     `;

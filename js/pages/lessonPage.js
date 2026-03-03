@@ -3,12 +3,12 @@ import { getLesson } from "../data/dataService.js";
 export const lessonPage = {
   render({ subjectId, lessonId }) {
     const lesson = getLesson(subjectId, lessonId);
-    if (!lesson) return `<h1>Урок не найден</h1>`;
+    if (!lesson) return `<h1>Keine Lektion gefunden</h1>`;
 
     const homework = lesson.homework ?? [];
     const homeWorkList = homework.length
       ? homework.map(hW => `<li>${hW.task}</li>`).join("")
-      : `<li>Нет домашнего задания</li>`;
+      : `<li>Keine Hausaufgaben</li>`;
 
     return `
       <article class="lesson">
@@ -23,12 +23,12 @@ export const lessonPage = {
         </div>
 
         <div class="lesson__description">
-          <h2 class="lesson__subtitle">Описание урока</h2>
+          <h2 class="lesson__subtitle">Lektionbeschreibung</h2>
           <p class="lesson__text" id="lessonText">${lesson.description}</p>
         </div>
 
         <div class="lesson__homework">
-          <h3 class="lesson__homework-title">Практическое задание:</h3>
+          <h3 class="lesson__homework-title">Hausaufgaben:</h3>
           <ul class="lesson__homework-list" id="lessonHomework">${homeWorkList}</ul>
         </div>
       </article>

@@ -49,7 +49,6 @@ export function createRouter({rootEl, routes}) {
             const id = favBtn.dataset.id;
             state.toggleFavorite(id);
             
-            // Магия SPA: просто перерисовываем текущую страницу, чтобы увидеть изменения
             render(window.location.pathname);
 
             const headerEl = rootEl.querySelector(".header");

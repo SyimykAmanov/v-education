@@ -11,7 +11,7 @@ export const subjectCard = (subject) => {
                 <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${subject.id}">
                     ${isFav ? '★' : '☆'}
                 </button>
-                <a href="/subject/${subject.id}" class="card__link">Уроки</a>
+                <a href="/subject/${subject.id}" class="card__link">Zu den Lektionen</a>
             </article>
         </li>
     `;

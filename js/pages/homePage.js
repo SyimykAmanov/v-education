@@ -10,20 +10,20 @@ export const homePage = {
 
     return `
             <section class="hero">
-                <h1 class="hero__title">Подготовься дома к экзамену</h1>
-                <p class="hero__subtitle">Не выходя из дома, просто смотря видео, подготовься к главному экзамену эффективно, просто и быстро</p>
+                <h1 class="hero__title">Bereite dich effektiv auf die Prüfung vor.</h1>
+                <p class="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
             </section>
 
 
              <section class="subjects-preview">
-                <h2 class="subjects-preview__title">Разделы видео уроков</h2>
+                <h2 class="subjects-preview__title">Alle Lernfächer</h2>
                 <ul class="subjects-preview__list">
                     ${subjectsHTML}
                 </ul>
             </section>
 
             <section class="faq">
-                <h3 class="faq__title">Часто задаваемые вопросы</h3>
+                <h3 class="faq__title">Häufig gestellte Fragen</h3>
                 ${faqHTML}
             </section>`;
   }
