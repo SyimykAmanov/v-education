@@ -45,7 +45,15 @@ export function createRouter({rootEl, routes}) {
     }
 
     function onLinkClick(event) {
-        const favBtn = event.target.closest('.favorite-btn');
+        const comBtn = event.target.closest('#completed-btn');
+        if (comBtn) {
+            const id = comBtn.dataset.id;
+            state.toggleCompleted(id);
+
+            render(window.location.pathname)
+        }
+
+        const favBtn = event.target.closest('#favorite');
         if (favBtn) {
             const id = favBtn.dataset.id;
             state.toggleFavorite(id);

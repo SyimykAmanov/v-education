@@ -8,6 +8,11 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
+.lesson__header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .lesson__title {
     margin-bottom: 25px;
     font-size: 1.8rem;

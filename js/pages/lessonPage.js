@@ -1,4 +1,5 @@
 import { getLesson } from "../data/dataService.js";
+import { state } from "../core/state.js";
 
 export const lessonPage = {
   render({ subjectId, lessonId }) {
@@ -10,10 +11,13 @@ export const lessonPage = {
       ? homework.map(hW => `<li>${hW.task}</li>`).join("")
       : `<li>Keine Hausaufgaben</li>`;
 
+    const isCompl = state.isComplated(lessonId);
     return `
       <article class="lesson">
-        <h1 class="lesson__title" id="lessonTitle">${lesson.order}. ${lesson.title}</h1>
-
+        <div class="lesson__header">
+          <h1 class="lesson__title" id="lessonTitle">${lesson.order}. ${lesson.title}</h1>
+          <button class="button ${isCompl ? "active": ""} completed-button" data-id="${lessonId}" id="completed-btn"> ${isCompl ? "Урок изучен": "Отметить как изученный"}</button>
+        </div>
         <div class="lesson__video" id="lessonVideo">
           <iframe class="lesson__iframe"
             src="${lesson.videoUrl}"
