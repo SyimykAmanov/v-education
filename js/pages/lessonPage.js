@@ -16,7 +16,7 @@ export const lessonPage = {
       <article class="lesson">
         <div class="lesson__header">
           <h1 class="lesson__title" id="lessonTitle">${lesson.order}. ${lesson.title}</h1>
-          <button class="button ${isCompl ? "active": ""} completed-button" data-id="${lessonId}" id="completed-btn"> ${isCompl ? "Урок изучен": "Отметить как изученный"}</button>
+          <button class="button ${isCompl ? "active": ""} completed-button" data-id="${lessonId}" id="completed-btn"> ${isCompl ? "Lektion abgeschlossen": "als abgeschlossen markieren"}</button>
         </div>
         <div class="lesson__video" id="lessonVideo">
           <iframe class="lesson__iframe"
