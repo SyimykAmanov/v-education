@@ -8,7 +8,7 @@ export const subjectCard = (subject) => {
             <article class="card subject-card">
                 <h3 class="card__title subject-card__title">${subject.title}</h3>
                 <p class="card__description subject-card__description">${subject.subtitle}</p>
-                <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${subject.id}">
+                <button class="favorite__button button ${isFav ? 'active' : ''}" data-id="${subject.id}" id="favorite">
                     ${isFav ? '★' : '☆'}
                 </button>
                 <a href="/subject/${subject.id}" class="card__link">Zu den Lektionen</a>
