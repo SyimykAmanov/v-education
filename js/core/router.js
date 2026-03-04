@@ -41,6 +41,7 @@ export function createRouter({rootEl, routes}) {
     function navigate(pathname) {
         history.pushState({}, "", pathname);
         render(pathname);
+        window.scrollTo(0, 0);
     }
 
     function onLinkClick(event) {
