@@ -7,7 +7,7 @@ export const subjectPage = {
     if (!subject) return `<h1>Kein Fach gefunden</h1><p>${subjectId}</p>`;
 
     const subjectLessons = getLessonsBySubjectId(subjectId);
-
+    console.log(subjectLessons)
     const list = subjectLessons.length
       ? subjectLessons.map(lessonCard).join("")
       : `<li class="card lesson-preview"><p class="card__description">Keine Videos verfügbar</p></li>`;
