@@ -35,5 +35,11 @@ export const state = {
     save() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(this.favorites));
         localStorage.setItem(STORAGE_KEY_COMPL, JSON.stringify(this.completed))
-    }
+    },
+
+    searchQuery: "",
+    
+    setSearchQuery(query) {
+        this.searchQuery = query;
+    },
 };

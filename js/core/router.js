@@ -80,8 +80,23 @@ export function createRouter({rootEl, routes}) {
 
     let contentEl;
 
+    function onSearchInput(event) {
+        if (event.target.id === "subjectSearch") {
+            const query = event.target.value;
+            state.setSearchQuery(query);
+
+            render(window.location.pathname);
+            const input = document.getElementById("subjectSearch");
+            if (input) {
+                input.focus();
+                input.setSelectionRange(query.length, query.length);
+            }
+        }
+    }
+
     function init() {
         window.addEventListener("popstate", () => render(window.location.pathname));
+        document.addEventListener("input", onSearchInput)
         document.addEventListener("click", onLinkClick);
         rootEl.innerHTML = `
             ${header()} <main id="content"></main> ${footer()}
