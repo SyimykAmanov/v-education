@@ -9,7 +9,21 @@ export const homePage = {
     const searchTerm = state.searchQuery || "";
 
     const filteredSubjects = subjects.filter(subject => subject.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    const subjectsHTML = filteredSubjects.map(subjectCard).join("");
+    let subjectsHTML;
+    let searchEmtyHTML;
+
+    if (filteredSubjects.length > 0) {
+        subjectsHTML = filteredSubjects.map(subjectCard).join("");
+        searchEmtyHTML = "";
+    } else {
+        searchEmtyHTML = `
+            <div class="search-emty">
+                <p class="search-emty__title">Nach der Suche von "${searchTerm}" wurde nichts gefunden</p>
+                <button id="resetSearch" class="button search-emty__button">Zurücksetzten</button>
+            </div>
+        `;
+        subjectsHTML = "";
+    }
     const faqHTML = getFaq().map(faqItem).join("");
 
     return `
@@ -24,8 +38,9 @@ export const homePage = {
 
              <section class="subjects-preview">
                 <h2 class="subjects-preview__title">Alle Lernfächer</h2>
+                ${searchEmtyHTML}
                 <ul class="subjects-preview__list">
-                    ${subjectsHTML || "<p>Nichts gefunden</p>"}
+                    ${subjectsHTML}
                 </ul>
             </section>
 

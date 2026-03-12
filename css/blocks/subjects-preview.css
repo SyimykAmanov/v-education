@@ -10,12 +10,12 @@
 
 .subjects-preview__list {
     display: flex;
-    flex-wrap: wrap; /* Разрешаем перенос */
+    flex-wrap: wrap;
     gap: 20px;
     list-style: none;
 }
 
 .subjects-preview__item {
-    flex: 1 1 calc(25% - 20px); /* 4 карточки в ряд */
+    flex: 1 1 calc(25% - 20px);
     min-width: 100px;
 }
