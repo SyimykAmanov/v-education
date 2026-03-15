@@ -2,11 +2,11 @@ import { getSubjectById, getLessonsBySubjectId } from "../data/dataService.js";
 import { lessonCard } from "../components/lessonCard.js";
 
 export const subjectPage = {
-  render({ subjectId }) {
-    const subject = getSubjectById(subjectId);
+  async render({ subjectId }) {
+    const subject = await getSubjectById(subjectId);
     if (!subject) return `<h1>Kein Fach gefunden</h1><p>${subjectId}</p>`;
 
-    const subjectLessons = getLessonsBySubjectId(subjectId);
+    const subjectLessons = await getLessonsBySubjectId(subjectId);
     console.log(subjectLessons)
     const list = subjectLessons.length
       ? subjectLessons.map(lessonCard).join("")

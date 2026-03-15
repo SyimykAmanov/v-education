@@ -29,13 +29,15 @@ export function createRouter({rootEl, routes}) {
         return
     }
 
-    function render(pathname) {
+    async function render(pathname) {
         let matched = match(pathname);
         if (!matched) {
             contentEl.innerHTML = `404`;
             return
         }
-        contentEl.innerHTML = matched.page.render(matched.params);
+        contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
+        const html = await matched.page.render(matched.params);
+        contentEl.innerHTML = html;
     }
 
     function navigate(pathname) {

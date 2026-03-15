@@ -2,8 +2,8 @@ import {subjects} from "./data/content.js";
 import {lessons} from "./data/content.js";
 import { createRouter } from "./core/router.js";
 import { homePage } from "./pages/homePage.js";
-import { lessonPage } from "./pages/lessonPage.js";
 import { subjectPage } from "./pages/subjectPage.js";
+import { lessonPage } from "./pages/lessonPage.js";
 
 const routes = [
    {pattern: "/", page: homePage},

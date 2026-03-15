@@ -28,7 +28,7 @@ export const state = {
         return this.favorites.includes(id);
     },
 
-    isComplated(id) {
+    isCompleted(id) {
         return this.completed.includes(id);
     },
 

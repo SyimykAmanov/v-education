@@ -3,7 +3,7 @@ import { state } from "../core/state.js"
 export const lessonCard = (lesson) => {
     if (!lesson) return ""; 
 
-    const isCompl = state.isComplated(String(lesson.id));
+    const isCompl = state.isCompleted(String(lesson.id));
 
     return `
         <li class="card lesson-preview">

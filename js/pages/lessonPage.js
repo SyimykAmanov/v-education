@@ -2,8 +2,8 @@ import { getLesson } from "../data/dataService.js";
 import { state } from "../core/state.js";
 
 export const lessonPage = {
-  render({ subjectId, lessonId }) {
-    const lesson = getLesson(subjectId, lessonId);
+  async render({ subjectId, lessonId }) {
+    const lesson = await getLesson(subjectId, lessonId);
     if (!lesson) return `<h1>Keine Lektion gefunden</h1>`;
 
     const homework = lesson.homework ?? [];
@@ -11,7 +11,7 @@ export const lessonPage = {
       ? homework.map(hW => `<li>${hW.task}</li>`).join("")
       : `<li>Keine Hausaufgaben</li>`;
 
-    const isCompl = state.isComplated(lessonId);
+    const isCompl = state.isCompleted(lessonId);
     return `
       <article class="lesson">
         <div class="lesson__header">
