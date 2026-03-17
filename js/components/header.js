@@ -3,7 +3,6 @@ import { subjects } from "../data/content.js";
 
 export const header = () => {
     const count = state.favorites.length;
-    console.log(state.favorites)
 
     const subjectsList = subjects.map(s => `
                         <li class="header__menu-item">

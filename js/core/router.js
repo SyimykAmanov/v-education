@@ -30,14 +30,25 @@ export function createRouter({rootEl, routes}) {
     }
 
     async function render(pathname) {
-        let matched = match(pathname);
-        if (!matched) {
-            contentEl.innerHTML = `404`;
-            return
+        try {
+            let matched = match(pathname);
+            if (!matched) {
+                contentEl.innerHTML = `404`;
+                return
+            }
+            contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
+            const html = await matched.page.render(matched.params);
+            contentEl.innerHTML = html;
+        } catch(error) {
+            console.error(error);
+                return `
+                    <div class=\"error-container\">
+                        <h2>Opps! Etwas ist schief gelaufen.</h2>
+                        <p>${error.message}</p>
+                        <button class="button" onclick=\"window.location.reload()\">Erneut versuchen</button>
+                    </div>
+                `;
         }
-        contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
-        const html = await matched.page.render(matched.params);
-        contentEl.innerHTML = html;
     }
 
     function navigate(pathname) {

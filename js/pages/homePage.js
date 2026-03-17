@@ -1,11 +1,13 @@
 import { subjectCard } from "../components/subjectCard.js";
 import { subjects } from "../data/content.js";
-import { getFaq } from "../data/dataService.js";
+import { getFaq, getRandomQuote } from "../data/dataService.js";
 import { faqItem } from "../components/FaqItem.js";
 import { state } from "../core/state.js";
 
 export const homePage = {
-  render() {
+  async render() {
+    const quote = await getRandomQuote();
+
     const searchTerm = state.searchQuery || "";
 
     const filteredSubjects = subjects.filter(subject => subject.title.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -33,6 +35,11 @@ export const homePage = {
                     <input type="text" id="subjectSearch" class="search-input" placeholder="Fachsuche..." value="${searchTerm}">
                 </div>
                 <p class="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
+                <div class="hero__quote-box quote-box">
+                    <p class="hero__quote-text quote-text">"${quote.quote}"</p>
+                    <cite class="hero__quote-author quote-author">- ${quote.author}</cite>
+                </div>
+
             </section>
 
 

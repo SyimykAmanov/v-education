@@ -1,5 +1,37 @@
 import { subjects, lessons, faqData} from "./content.js";
 
+export async function getRandomQuote() {
+    try {
+        const quoteRes = await fetch("https://dummyjson.com/quotes/random");
+        if (!quoteRes.ok) {
+          throw new Error ("Fehler beim laden der Zitate");
+        }
+        const quoteData = await quoteRes.json();
+        const englishText = quoteData.quote;
+        const author = quoteData.author;
+
+        //sending to translate
+        const translateURL = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(englishText)}&langpair=en|de`;
+        const translateRes = await fetch(translateURL);
+        if (!translateRes.ok) {
+          throw new Error("Fehler bei der Übersetzung");
+        }
+
+        const translatedData = await translateRes.json();
+        return {
+          quote: translatedData.responseData.translatedText,
+          author: author
+        }
+
+    } catch (error) {
+        console.warn("API Error, Fallback genutzt:", error);
+        return { 
+            content: "Lernen ist wie das Rudern gegen den Strom. Sobald man aufhört, treibt man zurück.", 
+            author: "Laozi" 
+        };
+    }
+}
+
 export async function getSubjectById(subjectId) {
   await new Promise(resolve => setTimeout(resolve, 1000));
 
