@@ -1,56 +1,32 @@
-# v-education
+# V-Education – Modulare Lernplattform (SPA)
 
-**v-education** is a lightweight Single Page Application (SPA) built with Vanilla JavaScript.
+Ein eigenständig entwickeltes Web-Portal für Bildungsangebote, das als **Single Page Application (SPA)** ohne externe Frameworks (Vanilla JavaScript) realisiert wurde. Das Projekt dient dazu, tiefe Einblicke in Software-Architektur, Routing-Logik und asynchrones Datenmanagement zu gewinnen.
 
-It provides video-based exam preparation content and demonstrates a custom routing system, modular page structure, and a separated data layer architecture.
+## 🚀 Key Features
 
----
+* **Custom Router:** Ein selbst entwickelter SPA-Router, der dynamische URLs (z.B. `/subject/:id`) verarbeitet, ohne die Seite neu zu laden.
+* **State Management:** Zentrale Verwaltung des Nutzerstatus (Favoriten, abgeschlossene Lektionen) inklusive Persistenz über den `LocalStorage`.
+* **Asynchrone Datenverarbeitung:** Dynamisches Laden von Inhalten mittels `fetch` und `Async/Await` sowie Integration einer externen Übersetzungs-API.
+* **Komponenten-Architektur:** Modulare Strukturierung der UI in wiederverwendbare JavaScript-Komponenten (Header, Footer, Cards).
+* **Responsive Design:** Optimierte Darstellung für verschiedene Endgeräte mittels modernem CSS (Flexbox/Grid).
 
-## Features
+## 🛠️ Technologie-Stack
 
-- Custom client-side router (pattern-based)
-- Dynamic route parameters (`:subjectId`, `:lessonId`)
-- Modular page structure
-- Separated data layer (dataService)
-- Defensive rendering (404 handling, safe data access)
-- No frameworks
+* **Sprache:** JavaScript (ES6+)
+* **Markup/Styling:** HTML5, CSS3
+* **Tools:** Git für Versionierung, GitHub Pages (optional für Deployment)
+* **Konzepte:** DOM-Manipulation, REST-API Integration, Event-Handling, JSON-Verarbeitung.
 
----
+## 📂 Projektstruktur
 
-## Architecture
-index.html → App layout
-main.js → Entry point
-core/router.js → Routing system
-pages/ → Page modules
-components/ → Reusable UI blocks
-data/ → Data + dataService
+- `/components`: UI-Komponenten (z.B. `lessonCard.js`, `faqItem.js`)
+- `/core`: Kernlogik wie `router.js` und `state.js`
+- `/data`: Daten-Services und statische Inhalte (`dataService.js`)
+- `/pages`: Seiten-Templates (`homePage.js`, `subjectPage.js`)
+- `main.js`: Einstiegspunkt der Applikation
 
+## 🔧 Installation & Start
 
----
-
-## Routes
-
-- `/`
-- `/subject/:subjectId`
-- `/subject/:subjectId/lesson/:lessonId`
-
----
-
-## Tech Stack
-
-- Vanilla JavaScript (ES Modules)
-- HTML5
-- CSS3
-- History API
-
----
-
-## Run Locally
-
-```bash
-npm install
-npm run dev
-
-Purpose
-
-This project is built as part of a Full-Stack learning roadmap to deeply understand SPA architecture without using frameworks.
+1. Repository klonen:
+   ```bash
+   git clone [https://github.com/SyimykAmanov/v-education.git](https://github.com/SyimykAmanov/v-education.git)
