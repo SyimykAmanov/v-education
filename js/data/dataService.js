@@ -26,7 +26,7 @@ export async function getRandomQuote() {
     } catch (error) {
         console.warn("API Error, Fallback genutzt:", error);
         return { 
-            content: "Lernen ist wie das Rudern gegen den Strom. Sobald man aufhört, treibt man zurück.", 
+            quote: "Lernen ist wie das Rudern gegen den Strom. Sobald man aufhört, treibt man zurück.", 
             author: "Laozi" 
         };
     }
@@ -43,7 +43,7 @@ export async function getSubjectById(subjectId) {
 
 
 export async function getLessonsBySubjectId(subjectId) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 500));
 
   return lessons
     .filter(lesson => lesson.subjectId === subjectId)
@@ -53,7 +53,7 @@ export async function getLessonsBySubjectId(subjectId) {
 
 
 export async function getLesson(subjectId, lessonId) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 500));
 
   return lessons.find(lesson => lesson.subjectId === subjectId && String(lesson.id) == String(lessonId))
 }

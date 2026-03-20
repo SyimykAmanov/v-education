@@ -6,7 +6,6 @@ import { state } from "../core/state.js";
 
 export const homePage = {
   async render() {
-    const quote = await getRandomQuote();
 
     const searchTerm = state.searchQuery || "";
 
@@ -35,13 +34,10 @@ export const homePage = {
                     <input type="text" id="subjectSearch" class="search-input" placeholder="Fachsuche..." value="${searchTerm}">
                 </div>
                 <p class="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
-                <div class="hero__quote-box quote-box">
-                    <p class="hero__quote-text quote-text">"${quote.quote}"</p>
-                    <cite class="hero__quote-author quote-author">- ${quote.author}</cite>
+                <div id="quote-container" class="hero__quote-placeholder quote-placeholder">
+                    <p>wird geladen</p>         
                 </div>
-
             </section>
-
 
              <section class="subjects-preview">
                 <h2 class="subjects-preview__title">Alle Lernfächer</h2>
@@ -55,5 +51,18 @@ export const homePage = {
                 <h3 class="faq__title">Häufig gestellte Fragen</h3>
                 ${faqHTML}
             </section>`;
-  }
+  },
+async afterRender() {
+    const container = document.getElementById("quote-container");
+    if (!container) return;
+
+    const quote = await getRandomQuote();
+
+    container.innerHTML = `
+        <div class="hero__quote-box quote-box">
+            <p class="hero__quote-text quote-text">"${quote.quote}"</p>
+            <cite class="hero__quote-author quote-author">- ${quote.author}</cite>
+        </div>  
+    `
+}
 };

@@ -39,6 +39,10 @@ export function createRouter({rootEl, routes}) {
             contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
             const html = await matched.page.render(matched.params);
             contentEl.innerHTML = html;
+
+            if (matched.page.afterRender) {
+                matched.page.afterRender();
+            }
         } catch(error) {
             console.error(error);
                 return `
