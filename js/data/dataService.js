@@ -41,21 +41,67 @@ export async function getSubjectById(subjectId) {
   return subjects.find(s => s.id === subjectId) ?? null;
 }
 
+export async function getSubject(subjectId) {
+  try {
+    const subjectsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/subjects";
+    const response = await fetch(subjectsURL);
+    if (response.ok) {
+      const result = await response.json();
+      const subjects = result.subjects;
+      const subject = subjects.find(subject => subject.id === subjectId);
+      return subject;
+    }
+  } catch (error) {
+    console.error(`The error: ${error}`)
+  }
+}
 
-export async function getLessonsBySubjectId(subjectId) {
-  await new Promise(resolve => setTimeout(resolve, 500));
+export async function getSubjects() {
+  try {
+    const subjectsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/subjects";
+    const response = await fetch(subjectsURL);
+    if (response.ok) {
+      const result = await response.json();
+      return result.subjects;
+    }
+  } catch (error) {
+    console.error(`The error: ${error}`)
+  }
+}
 
-  return lessons
-    .filter(lesson => lesson.subjectId === subjectId)
-    .slice()
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+export async function getLesson(subjectId, lessonId) {
+  try {
+    const lessonsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/lessons";
+    const response = await fetch(lessonsURL);
+    const result = await response.json();
+    const lessons = result.lessons;
+    const lesson = lessons.find(lesson => {
+      if (lesson.subjectId === subjectId && lesson.id == lessonId) {
+        return lesson;
+      }
+    })
+    if (response.ok) {
+      return lesson
+    }
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
 }
 
 
-export async function getLesson(subjectId, lessonId) {
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  return lessons.find(lesson => lesson.subjectId === subjectId && String(lesson.id) == String(lessonId))
+export async function getSubjectLessons(subjectId) {
+  try {
+    const lessonsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/lessons";
+    const response = await fetch(lessonsURL);
+    if (response.ok) {
+      const result = await response.json();
+      const lessons = result.lessons;
+      const subjectLessons = lessons.filter(lesson => lesson.subjectId === subjectId)
+      return subjectLessons
+    }
+  } catch (error) {
+    console.error(`Error: ${error}`)
+  }
 }
 
 export const getFaq = () => faqData;

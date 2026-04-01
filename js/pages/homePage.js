@@ -1,12 +1,12 @@
 import { subjectCard } from "../components/subjectCard.js";
-import { subjects } from "../data/content.js";
-import { getFaq, getRandomQuote } from "../data/dataService.js";
+import { getFaq, getRandomQuote, getSubjects } from "../data/dataService.js";
 import { faqItem } from "../components/FaqItem.js";
 import { state } from "../core/state.js";
 
 export const homePage = {
   async render() {
-
+    
+    const subjects = await getSubjects();
     const searchTerm = state.searchQuery || "";
 
     const filteredSubjects = subjects.filter(subject => subject.title.toLowerCase().includes(searchTerm.toLowerCase()));

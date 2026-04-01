@@ -1,13 +1,10 @@
-import { getSubjectById, getLessonsBySubjectId } from "../data/dataService.js";
 import { lessonCard } from "../components/lessonCard.js";
+import { getSubjectLessons, getSubject } from "../data/dataService.js";
 
 export const subjectPage = {
   async render({ subjectId }) {
     try {
-      const [subject, subjectLessons] = await Promise.all([
-        getSubjectById(subjectId), 
-        getLessonsBySubjectId(subjectId)]);
-        
+      const [subject, subjectLessons] = await Promise.all([getSubject(subjectId), getSubjectLessons(subjectId)])
       if (!subject) return `<h1>Kein Fach gefunden</h1><p>${subjectId}</p>`;
 
 
