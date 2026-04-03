@@ -4,14 +4,21 @@ import { faqItem } from "../components/FaqItem.js";
 import { state } from "../core/state.js";
 import { Quote } from "../components/quote.js";
 import { Button } from "../components/button.js";
+import { CategoryFilter } from "../components/categoryFilter.js";
 
 export const homePage = {
-  async render() {
+    render() {
     
-    const subjects = await getSubjects();
-    const searchTerm = state.searchQuery || "";
+    const subjects = state.subjects;
+    const searchTerm = state.searchQuery.toLowerCase() || "";
+    const activeCategory = state.activeCategory;
 
-    const filteredSubjects = subjects.filter(subject => subject.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredSubjects = subjects.filter(subject => {
+        const matchesSearch = subject.title.toLowerCase().includes(searchTerm);
+        const matchesCategory = activeCategory === "All" || subject.category === activeCategory;
+
+        return matchesSearch && matchesCategory;
+    });
     let subjectsHTML;
     let searchEmtyHTML;
 
@@ -35,6 +42,7 @@ export const homePage = {
                 <div class="search-container">
                     <input type="text" id="subjectSearch" class="search-input" placeholder="Fachsuche..." value="${searchTerm}">
                 </div>
+                ${CategoryFilter(state.categories, state.activeCategory)}
                 <p class="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
                 <div id="quote-container" class="hero__quote-placeholder quote-placeholder">
                     <p>wird geladen</p>         

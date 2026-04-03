@@ -29,7 +29,7 @@ export function createRouter({rootEl, routes}) {
         return
     }
 
-    async function render(pathname) {
+    function render(pathname) {
         try {
             let matched = match(pathname);
             if (!matched) {
@@ -37,7 +37,7 @@ export function createRouter({rootEl, routes}) {
                 return
             }
             contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
-            const html = await matched.page.render(matched.params);
+            const html = matched.page.render(matched.params);
             contentEl.innerHTML = html;
 
             if (matched.page.afterRender) {
@@ -62,6 +62,17 @@ export function createRouter({rootEl, routes}) {
     }
 
     function onLinkClick(event) {
+        const categoryBtn = event.target.closest(".category-btn");
+
+        if (categoryBtn) {
+            const newCategory = categoryBtn.dataset.category;
+            
+            state.setActiveCategory(newCategory);
+            
+            render(window.location.pathname);
+            return;
+        }
+
         if(event.target.id === "resetSearch") {
             state.setSearchQuery("");
             render(window.location.pathname);
@@ -121,7 +132,7 @@ export function createRouter({rootEl, routes}) {
         document.addEventListener("input", onSearchInput)
         document.addEventListener("click", onLinkClick);
         rootEl.innerHTML = `
-            ${header()} <main id="content"></main> ${footer()}
+            ${header(state.subjects)} <main id="content"></main> ${footer()}
         `
         contentEl = rootEl.querySelector("#content");
         render(window.location.pathname);

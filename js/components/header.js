@@ -1,9 +1,8 @@
 import {state} from "../core/state.js";
-import { subjects } from "../data/content.js";
 
-export const header = () => {
+export const header = (subjects) => {
+
     const count = state.favorites.length;
-
     const subjectsList = subjects.map(s => `
                         <li class="header__menu-item">
                             <a href="/subject/${s.id}" class="header__menu-link">${s.title}</a>

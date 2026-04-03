@@ -2,6 +2,10 @@ const STORAGE_KEY = 'v_education_favorites';
 const STORAGE_KEY_COMPL = "v_education_completed";
 
 export const state = {
+    subjects: [],
+    categories: [],
+    activeCategory: "All",
+
     favorites: JSON.parse(localStorage.getItem(STORAGE_KEY)) || [],
     completed: JSON.parse(localStorage.getItem(STORAGE_KEY_COMPL)) || [],
 
@@ -42,4 +46,13 @@ export const state = {
     setSearchQuery(query) {
         this.searchQuery = query;
     },
+    setSubjects(data) {
+        this.subjects = data;
+    },
+    setActiveCategory(category) {
+        this.activeCategory = category;
+    },
+    setCategories(data) {
+        this.categories = data;
+    }
 };
