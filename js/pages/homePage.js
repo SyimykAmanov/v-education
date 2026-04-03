@@ -2,6 +2,8 @@ import { subjectCard } from "../components/subjectCard.js";
 import { getFaq, getRandomQuote, getSubjects } from "../data/dataService.js";
 import { faqItem } from "../components/FaqItem.js";
 import { state } from "../core/state.js";
+import { Quote } from "../components/quote.js";
+import { Button } from "../components/button.js";
 
 export const homePage = {
   async render() {
@@ -56,13 +58,8 @@ async afterRender() {
     const container = document.getElementById("quote-container");
     if (!container) return;
 
-    const quote = await getRandomQuote();
+    const quoteData = await getRandomQuote();
 
-    container.innerHTML = `
-        <div class="hero__quote-box quote-box">
-            <p class="hero__quote-text quote-text">"${quote.quote}"</p>
-            <cite class="hero__quote-author quote-author">- ${quote.author}</cite>
-        </div>  
-    `
+    container.innerHTML = Quote(quoteData);
 }
 };

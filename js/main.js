@@ -1,5 +1,3 @@
-import {subjects} from "./data/content.js";
-import {lessons} from "./data/content.js";
 import { createRouter } from "./core/router.js";
 import { homePage } from "./pages/homePage.js";
 import { subjectPage } from "./pages/subjectPage.js";
