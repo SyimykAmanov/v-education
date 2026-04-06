@@ -49,7 +49,8 @@ export function createRouter({rootEl, routes, state}) {
         return null;
     }
 
-    function render(pathname) {
+    //render the current path
+    async function render(pathname) {
         try {
             const matched = match(pathname);
             if (!matched) {
@@ -59,7 +60,9 @@ export function createRouter({rootEl, routes, state}) {
 
             //show the loader
             contentEl.innerHTML = `<div class="loader">Wird geladen...</div>`;
-            const html = matched.page.render(matched.params);
+
+            //render the home page
+            const html = await matched.page.render(matched.params);
             contentEl.innerHTML = html;
 
             //Call the afterRender hook, if it exists
