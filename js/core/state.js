@@ -1,8 +1,11 @@
+import { faqData } from "../data/content";
+
 const STORAGE_KEY = 'v_education_favorites';
 const STORAGE_KEY_COMPL = "v_education_completed";
 
 export const state = {
     subjects: [],
+    faqData: [],
     categories: [],
     activeCategory: "All",
 
@@ -54,5 +57,8 @@ export const state = {
     },
     setCategories(data) {
         this.categories = data;
+    },
+    setFaqData(data) {
+        this.faqData = data;
     }
 };

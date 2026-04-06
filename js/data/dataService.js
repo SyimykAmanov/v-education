@@ -104,4 +104,11 @@ export async function getSubjectLessons(subjectId) {
   }
 }
 
-export const getFaq = () => faqData;
+export async function getFaq () {
+  const URL = "http://127.0.0.1:3658/m1/1236529-1233135-default/faq";
+  const response = await fetch(URL);
+  const result = await response.json();
+
+  return result;
+};
+

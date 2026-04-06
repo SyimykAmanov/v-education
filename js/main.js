@@ -4,6 +4,7 @@ import { subjectPage } from "./pages/subjectPage.js";
 import { lessonPage } from "./pages/lessonPage.js";
 import { getSubjects } from "./data/dataService.js";
 import { state } from "./core/state.js";
+import { getFaq } from "./data/dataService.js";
 
 const routes = [
    {pattern: "/", page: homePage},
