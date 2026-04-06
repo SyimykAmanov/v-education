@@ -15,11 +15,14 @@ async function startApp() {
     const subjects = await getSubjects();
     state.setSubjects(subjects);
 
+    const faqData = await getFaq();
+    state.setFaqData(faqData);
+
     const categories = ["All", ...new Set(subjects.map(subject => subject.category))];
     state.setCategories(categories);
 
     const app = document.querySelector("#app");
-    let router = createRouter({rootEl: app, routes: routes});
+    let router = createRouter({rootEl: app, routes: routes, state: state});
     router.init();
 }
 

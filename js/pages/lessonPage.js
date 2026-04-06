@@ -17,7 +17,7 @@ export const lessonPage = {
           ${StatusButton({isCompleted: isCompl, dataId: lesson.id})}
         </div>
 
-        ${VideoPlayer({className: "lesson__video", id: "lessonVideo", url: lesson.videoUrl})};
+        ${VideoPlayer({className: "lesson__video", id: "lessonVideo", url: lesson.videoUrl})}
 
         <div class="lesson__description">
           <h2 class="lesson__subtitle">Lektionbeschreibung</h2>

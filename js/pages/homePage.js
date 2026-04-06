@@ -1,32 +1,36 @@
-import { subjectCard } from "../components/subjectCard.js";
-import { getFaq, getRandomQuote, getSubjects } from "../data/dataService.js";
-import { faqItem } from "../components/FaqItem.js";
-import { state } from "../core/state.js";
-import { Quote } from "../components/quote.js";
-import { Button } from "../components/button.js";
-import { CategoryFilter } from "../components/categoryFilter.js";
+// home page module
 
+import { state } from "../core/state.js";
+import { subjectCard } from "../components/subjectCard.js";
+import { Quote } from "../components/quote.js";
+import { CategoryFilter } from "../components/categoryFilter.js";
+import { Search } from "../components/searcher.js";
+import { Faq } from "../components/faq.js";
+import { filterService } from "../data/filterService.js";
+
+// home page object
 export const homePage = {
+
+    // render HTML for the home page based on the current state
     render() {
     
+    // get data from global state
     const subjects = state.subjects;
     const searchTerm = state.searchQuery.toLowerCase() || "";
     const activeCategory = state.activeCategory;
+    
+    const filteredSubjects = filterService.filterSubjects(subjects, searchTerm, activeCategory);
 
-    const filteredSubjects = subjects.filter(subject => {
-        const matchesSearch = subject.title.toLowerCase().includes(searchTerm);
-        const matchesCategory = activeCategory === "All" || subject.category === activeCategory;
-
-        return matchesSearch && matchesCategory;
-    });
     let subjectsHTML;
-    let searchEmtyHTML;
+    let searchEmptyHTML;
 
     if (filteredSubjects.length > 0) {
+        // subjects are available: render lesson cards
         subjectsHTML = filteredSubjects.map(subjectCard).join("");
-        searchEmtyHTML = "";
+        searchEmptyHTML = "";
     } else {
-        searchEmtyHTML = `
+        // no subjects: show massage and a reset button
+        searchEmptyHTML = `
             <div class="search-emty">
                 <p class="search-emty__title">Nach der Suche von "${searchTerm}" wurde nichts gefunden</p>
                 <button id="resetSearch" class="button search-emty__button">Zurücksetzten</button>
@@ -34,14 +38,12 @@ export const homePage = {
         `;
         subjectsHTML = "";
     }
-    const faqHTML = getFaq().map(faqItem).join("");
 
+    // return the complete page markup
     return `
             <section class="hero">
                 <h1 class="hero__title">Bereite dich effektiv auf die Prüfung vor.</h1>
-                <div class="search-container">
-                    <input type="text" id="subjectSearch" class="search-input" placeholder="Fachsuche..." value="${searchTerm}">
-                </div>
+                ${Search("subjectSearch", "search-input", searchTerm)}
                 ${CategoryFilter(state.categories, state.activeCategory)}
                 <p class="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
                 <div id="quote-container" class="hero__quote-placeholder quote-placeholder">
@@ -51,23 +53,20 @@ export const homePage = {
 
              <section class="subjects-preview">
                 <h2 class="subjects-preview__title">Alle Lernfächer</h2>
-                ${searchEmtyHTML}
+                ${searchEmptyHTML}
                 <ul class="subjects-preview__list">
                     ${subjectsHTML}
                 </ul>
             </section>
+            ${Faq(state.faqData)}`
+    },
 
-            <section class="faq">
-                <h3 class="faq__title">Häufig gestellte Fragen</h3>
-                ${faqHTML}
-            </section>`;
-  },
-async afterRender() {
-    const container = document.getElementById("quote-container");
-    if (!container) return;
-
-    const quoteData = await getRandomQuote();
-
-    container.innerHTML = Quote(quoteData);
+    // random Quote: call after the HTML page has been inserted into the DOM
+    async afterRender() {
+        const container = document.getElementById("quote-container");
+        if (!container) return;
+        
+        // call HTML for random quote
+        container.innerHTML = Quote();
+    }
 }
-};
