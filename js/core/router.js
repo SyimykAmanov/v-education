@@ -1,5 +1,7 @@
 import {header} from "../components/header.js";
 import {footer} from "../components/footer.js";
+import { subjectCard } from "../components/subjectCard.js";
+import { getSubjectById } from "../data/dataService.js";
 
 
 //parses a pathname against pattern and extracts dynamic parametrs
@@ -88,7 +90,7 @@ export function createRouter({rootEl, routes, state}) {
     }
 
     //global click handler: handles clicks on links, as well as clicks on category buttons, lesson completion, favorites and search reset.
-    function onLinkClick(event) {
+    async function onLinkClick(event) {
         
         //1. Category selection button
         const categoryBtn = event.target.closest(".category-btn");
@@ -121,8 +123,8 @@ export function createRouter({rootEl, routes, state}) {
         if (favoriteBtn) {
             const id = favoriteBtn.dataset.id;
             state.toggleFavorite(id);
-            
-            render(window.location.pathname);
+
+            updateSubject(id)
 
             //update the header
             updateHeader()
@@ -163,6 +165,16 @@ export function createRouter({rootEl, routes, state}) {
         if (headerEl && typeof header === 'function') {
             headerEl.outerHTML = header(state.subjects);
         }
+    }
+
+    //update favorite icon in the subject card
+    function updateSubject(subjectId) {
+        const subjectEl = document.querySelector(`[data-subject-id="${subjectId}"]`);
+        const subject = getSubjectById(subjectId);
+
+        if (subjectEl && typeof subjectCard === 'function') {
+            subjectEl.outerHTML = subjectCard(subject);
+        }   
     }
 
     //router initialization: adds listeners, draws the basic structure, starts rendering the current URL.

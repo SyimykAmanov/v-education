@@ -1,4 +1,4 @@
-import { subjects, lessons, faqData} from "./content.js";
+import { state } from "../core/state.js";
 
 export async function getRandomQuote() {
     try {
@@ -32,12 +32,9 @@ export async function getRandomQuote() {
     }
 }
 
-export async function getSubjectById(subjectId) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+export function getSubjectById(subjectId) {
+  const subjects = state.subjects;
 
-  if (Math.random() < 0.2) {
-    throw new Error("Server-Fehler: Daten konnten nicht geladen werden.")
-  }
   return subjects.find(s => s.id === subjectId) ?? null;
 }
 
