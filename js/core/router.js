@@ -136,7 +136,7 @@ export function createRouter({rootEl, routes, state}) {
         
         // Skip external links, anchors, and links with target="_blank"
         const href = link.getAttribute("href");
-        if (!href || href.startsWith('http') || href.startsWith('#') || a.target === '_blank') return;
+        if (!href || href.startsWith('http') || href.startsWith('#') || link.target === '_blank') return;
         if (!href.startsWith('/')) return;
 
         event.preventDefault();
