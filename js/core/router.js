@@ -2,7 +2,7 @@ import {header} from "../components/header.js";
 import {footer} from "../components/footer.js";
 import { subjectCard } from "../components/subjectCard.js";
 import { getSubjectById } from "../data/dataService.js";
-
+import { FilteredSubjects } from "../components/filteredSubjects.js";
 
 //parses a pathname against pattern and extracts dynamic parametrs
 //Returns an object of param names to decoded values, or null if no match.
@@ -97,14 +97,16 @@ export function createRouter({rootEl, routes, state}) {
         if (categoryBtn) {
             const newCategory = categoryBtn.dataset.category;
             state.setActiveCategory(newCategory);
-            render(window.location.pathname);
+            
+            //update categories
+            updateActiveCategory(categoryBtn)
             return;
         }
 
         //2. Search reset button
         if(event.target.id === "resetSearch") {
             state.setSearchQuery("");
-            render(window.location.pathname);
+            updateSubjects()
             return;
         }
 
@@ -114,7 +116,8 @@ export function createRouter({rootEl, routes, state}) {
             const id = completedBtn.dataset.id;
             state.toggleCompleted(id);
 
-            render(window.location.pathname);
+            //update completed status button
+            updateStatusButton(completedBtn);
             return;
         }
 
@@ -124,10 +127,11 @@ export function createRouter({rootEl, routes, state}) {
             const id = favoriteBtn.dataset.id;
             state.toggleFavorite(id);
 
+            //update favorite subject
             updateSubject(id)
 
             //update the header
-            updateHeader()
+            updateFavCounts()
         }
 
         //5. Regular links (navigation)
@@ -148,22 +152,41 @@ export function createRouter({rootEl, routes, state}) {
         if (event.target.id === "subjectSearch") {
             const query = event.target.value;
             state.setSearchQuery(query);
-            render(window.location.pathname);
-
-            // Save focus and cursor position
-            const input = document.getElementById("subjectSearch");
-            if (input) {
-                input.focus();
-                input.setSelectionRange(query.length, query.length);
-            }
+            updateSubjects();
         }
     }
 
-    //update header
-    function updateHeader() {
-        const headerEl = rootEl.querySelector('.header');
-        if (headerEl && typeof header === 'function') {
-            headerEl.outerHTML = header(state.subjects);
+    //update subjects
+    function updateSubjects() {
+        let subjectsPreview = document.querySelector(".subjects-preview__list");
+        subjectsPreview.innerHTML = FilteredSubjects();
+    }
+
+    //update active category button
+    function updateActiveCategory(categoryBtn) {
+        let oldActiveButton = document.querySelector(".category-btn.active");
+        oldActiveButton?.classList.remove("active");
+        categoryBtn.classList.add("active");
+
+        let subjectsPreview = document.querySelector(".subjects-preview__list");
+        subjectsPreview.innerHTML = FilteredSubjects();
+    }
+
+
+    //update complated status button
+    function updateStatusButton(button) {
+        let lessonId = button.dataset.id;
+        let isComp = state.isCompleted(lessonId)
+        
+        button.textContent = isComp ? "Erledigt" : "als abgeschlossen markieren";
+        button.className = `button completed-button ${isComp ? "active" : ""}`;
+    }
+    
+    //update header 
+    function updateFavCounts() {
+        const favEl = rootEl.querySelector('.nav__fav-count');
+        if (favEl) {
+            favEl.innerHTML = `Lieblingsfächer: ${state.favorites.length}`
         }
     }
 
